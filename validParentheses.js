@@ -5,6 +5,10 @@
  * @return {boolean}
  */
 var isValid = function (s) {
+  if (s.length === 0) return true;
+  if (s.length === 1) return false;
+  if (s.length % 2 !== 0) return false;
+
   let stack = [];
   let map = {
     "(": ")",
@@ -13,18 +17,14 @@ var isValid = function (s) {
   };
 
   for (let i = 0; i < s.length; i++) {
-    let char = s.charAt(i);
+    let currChar = s[i];
 
-    if (char in map) {
-      stack.push(char);
+    if (currChar in map) {
+      stack.push(currChar);
     } else {
-      if (stack.length === 0) {
-        return false;
-      }
+      let lastChar = stack.pop();
 
-      let last = stack.pop();
-
-      if (map[last] !== char) {
+      if (map[lastChar] !== currChar) {
         return false;
       }
     }
